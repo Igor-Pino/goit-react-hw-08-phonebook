@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'modern-normalize/modern-normalize.css';
 import './index.css';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
-
 import App from './App';
+import 'modern-normalize/modern-normalize.css';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <BrowserRouter>
       <App />
-    </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.querySelector('#root'),
 );

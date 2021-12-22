@@ -1,23 +1,28 @@
-import { useGetContactsQuery } from './redux/contactSlice';
-import ContactInput from './components/ContactInput';
-import ContactsList from './components/ContactsList/ContactsList';
-import Filter from './components/ContactFilter';
-import s from './styles/base.module.scss';
+import { Routes, Route, Navigate } from 'react-router';
+import { lazy, Suspense } from 'react';
 
-function App() {
-  const { data, isFetching, error } = useGetContactsQuery();
+import AppBar from './components/AppBar';
+import Container from '@mui/material/Container';
 
+const LoginForm = lazy(() => import('./Pages/LoginPage.js'));
+const Registration = lazy(() => import('./Pages/RegisterPage.js'));
+const Contacts = lazy(() => import('./Pages/ContactsPage.js'));
+const Home = lazy(() => import('./Pages/HomePage.js'));
+
+export default function App() {
   return (
-    <div className={s.main_container}>
-      <h1 className={s.title}>Phonebook</h1>
-
-      <ContactInput data={data} />
-
-      <Filter />
-
-      {error ? `${error.message}` : <ContactsList data={data} isFetching={isFetching} />}
+    <div>
+      <AppBar />
+      <Container maxWidth="sm">
+        <Suspense fallback={<h1>suspense</h1>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/registration" element={<Registration />} />
+            <Route path="/contacts" element={<Contacts />} />
+          </Routes>
+        </Suspense>
+      </Container>
     </div>
   );
 }
-
-export default App;
