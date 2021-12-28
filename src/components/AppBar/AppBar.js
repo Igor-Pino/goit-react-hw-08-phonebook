@@ -1,10 +1,12 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import User from '../User';
 import AppBarHeader from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-
+import authSelectors from '../../Redux/Auth/authSelectors';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
@@ -27,8 +29,7 @@ const useStyles = makeStyles({
 function AppBar() {
   const s = useStyles();
 
-  const isLogged = true;
-
+  const isLogged = useSelector(authSelectors.getIsLoggedIn);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBarHeader position="static">
@@ -49,25 +50,23 @@ function AppBar() {
           <div className={s.logPages}>
             <div className={s.navPage}>
               {isLogged ? (
-                <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-                  <NavLink to="/login">
-                    <span className={s.logTitle}>Login</span>
-                  </NavLink>
-                </Typography>
+                <User />
               ) : (
-                <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-                  <NavLink to="/login">
-                    <span className={s.logTitle}>Logout</span>
-                  </NavLink>
-                </Typography>
+                <>
+                  <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
+                    <NavLink to="/login">
+                      <span className={s.logTitle}>Login</span>
+                    </NavLink>
+                  </Typography>
+
+                  <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
+                    <NavLink to="/registration">
+                      <span className={s.logTitle}>SingUp</span>
+                    </NavLink>
+                  </Typography>
+                </>
               )}
             </div>
-
-            <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-              <NavLink to="/registration">
-                <span className={s.logTitle}>SingUp</span>
-              </NavLink>
-            </Typography>
           </div>
         </Toolbar>
       </AppBarHeader>

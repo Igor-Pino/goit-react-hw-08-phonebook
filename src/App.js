@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router';
+import { Routes, Route } from 'react-router';
 import { lazy, Suspense } from 'react';
 
 import AppBar from './components/AppBar';
