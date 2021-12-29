@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 
 import AppBar from './components/AppBar';
 import Container from '@mui/material/Container';
+import Loader from './components/FallbackLoader';
 
 const LoginForm = lazy(() => import('./Pages/LoginPage.js'));
 const Registration = lazy(() => import('./Pages/RegisterPage.js'));
@@ -14,7 +15,7 @@ export default function App() {
     <div>
       <AppBar />
       <Container maxWidth="sm">
-        <Suspense fallback={<h1>suspense</h1>}>
+        <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginForm />} />

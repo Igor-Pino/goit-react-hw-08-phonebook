@@ -15,12 +15,6 @@ import Button from '@mui/material/Button';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
-  form: {
-    marginTop: '30',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   container: {
     padding: '30px',
     display: 'flex',
@@ -39,7 +33,7 @@ export default function RegisterForm() {
   const [name, setName] = useState('');
   const [showPassword, setshowPassword] = useState({ showPassword: false });
 
-  const classes = useStyles();
+  const s = useStyles();
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -72,7 +66,7 @@ export default function RegisterForm() {
 
   return (
     <Box
-      className={classes.container}
+      className={s.container}
       component="form"
       onSubmit={handelSubmit}
       sx={{
@@ -123,8 +117,8 @@ export default function RegisterForm() {
         />
       </FormControl>
 
-      <Button variant="contained" type="submit" className={classes.button}>
-        SignIn
+      <Button variant="contained" type="submit" className={s.button}>
+        SignUp
       </Button>
     </Box>
   );

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import AuthNav from '../AuthNav';
 import User from '../User';
 import AppBarHeader from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -48,25 +49,7 @@ function AppBar() {
           </div>
 
           <div className={s.logPages}>
-            <div className={s.navPage}>
-              {isLogged ? (
-                <User />
-              ) : (
-                <>
-                  <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-                    <NavLink to="/login">
-                      <span className={s.logTitle}>Login</span>
-                    </NavLink>
-                  </Typography>
-
-                  <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-                    <NavLink to="/registration">
-                      <span className={s.logTitle}>SingUp</span>
-                    </NavLink>
-                  </Typography>
-                </>
-              )}
-            </div>
+            <div className={s.navPage}>{isLogged ? <User /> : <AuthNav />}</div>
           </div>
         </Toolbar>
       </AppBarHeader>
