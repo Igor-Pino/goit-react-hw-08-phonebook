@@ -5,17 +5,16 @@ import { addContact } from '../../Redux/Contacts/contacts-operations';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
 import SaveIcon from '@mui/icons-material/Save';
-
 import ShortId from 'shortid';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 function ContactInput() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const nameInputId = ShortId.generate();
-  const numberInputId = ShortId.generate();
 
   const inputContact = { name, number };
 
@@ -31,19 +30,7 @@ function ContactInput() {
   };
 
   const handelChange = e => {
-    const inputName = e.target.name;
-    switch (inputName) {
-      case 'name':
-        setName(e.target.value);
-        break;
-
-      case 'number':
-        setNumber(e.target.value);
-        break;
-
-      default:
-        break;
-    }
+    setName(e.target.value);
   };
 
   const compareContacts = newContact => {
@@ -58,19 +45,23 @@ function ContactInput() {
 
   const handelSubmit = e => {
     e.preventDefault();
-
     compareContacts(inputContact);
-
     reset();
   };
 
+  const showAddButton = name !== '' && number !== '';
+  const showError = name !== '' && !name.match('[^abc]');
+  const phoneChange = phone => {
+    setNumber(phone);
+    console.log(number);
+  };
   return (
     <Box
       component="form"
       sx={{
         '& > :not(style)': { m: 1, width: '25ch' },
       }}
-      noValidate
+      validate
       autoComplete="off"
       onSubmit={handelSubmit}
     >
@@ -79,26 +70,17 @@ function ContactInput() {
         variant="outlined"
         type="text"
         name="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
         required
         value={name}
         id={nameInputId}
         onChange={handelChange}
+        error={showError}
+        helperText={showError ? 'input correct name' : ''}
       />
-      <TextField
-        label="Number"
-        variant="outlined"
-        type="tel"
-        name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-        required
-        value={number}
-        id={numberInputId}
-        onChange={handelChange}
-      />
-      <Button variant="contained" type="submit" endIcon={<SaveIcon />}>
+
+      <PhoneInput country={'ua'} value={number} onChange={phoneChange} />
+
+      <Button variant="contained" type="submit" endIcon={<SaveIcon />} disabled={!showAddButton}>
         Add contact
       </Button>
     </Box>
