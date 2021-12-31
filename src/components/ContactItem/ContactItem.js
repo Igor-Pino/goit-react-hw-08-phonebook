@@ -16,7 +16,7 @@ export default function ContactItem({ id, name, number, onDeleteContact }) {
   return (
     <Container className={s.container}>
       <Box sx={{ flexGrow: 1, maxWidth: 800 }}>
-        <Grid spacing={4}>
+        <Grid>
           <List>
             <ListItem>
               <ListItemAvatar>
@@ -24,8 +24,8 @@ export default function ContactItem({ id, name, number, onDeleteContact }) {
               </ListItemAvatar>
               <ListItemText primary={name} />
               <ListItemText primary={number} />
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon onClick={() => onDeleteContact(id)} />
+              <IconButton edge="end" aria-label="delete" onClick={() => onDeleteContact(id)}>
+                <DeleteIcon />
               </IconButton>
             </ListItem>
           </List>
@@ -38,6 +38,6 @@ export default function ContactItem({ id, name, number, onDeleteContact }) {
 ContactItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
   onDeleteContact: PropTypes.func.isRequired,
 };

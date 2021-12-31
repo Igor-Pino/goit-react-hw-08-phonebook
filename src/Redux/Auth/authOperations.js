@@ -42,12 +42,20 @@ const logIn = createAsyncThunk('auth/login', async (credentials, { rejectWithVal
  * headers: Authorization: Bearer token
  * После успешного логаута, удаляем токен из HTTP-заголовка
  */
-const logOut = createAsyncThunk('auth/logout', async ({ rejectWithValue }) => {
+// const logOut = createAsyncThunk('auth/logout', async ({ rejectWithValue }) => {
+//   try {
+//     await axios.post('/users/logout');
+//     token.unset();
+//   } catch (error) {
+//     return rejectWithValue(error.response.data);
+//   }
+// });
+const logOut = createAsyncThunk('auth/logout', async () => {
   try {
     await axios.post('/users/logout');
     token.unset();
   } catch (error) {
-    return rejectWithValue(error.response.data);
+    // TODO: Добавить обработку ошибки error.message
   }
 });
 /*

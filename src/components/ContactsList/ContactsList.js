@@ -2,7 +2,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-// import { deleteContact } from '../../redux/actions/contacts-actions';
 import { deleteContact, getContacts } from '../../Redux/Contacts/contacts-operations';
 import { contactFilter } from '../../Redux/Contacts/contacts-selectors';
 import ContactItem from '../ContactItem';
@@ -44,7 +43,10 @@ ContactsList.propTypes = {
       number: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
+};
+
+ContactsList.defaultProps = {
+  contacts: [],
 };
 
 export default ContactsList;

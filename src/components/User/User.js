@@ -18,13 +18,17 @@ const useStyles = makeStyles({
 export default function UserMenu() {
   const dispatch = useDispatch();
   const name = useSelector(authSelectors.getUsername);
+  const logOut = () => {
+    dispatch(authOperations.logOut());
+    console.log(authOperations.logOut());
+  };
   const s = useStyles();
   return (
     <div className={s.container}>
       <span className={s.name}>Wellcome, {name}</span>
 
-      <IconButton aria-label="log out">
-        <LogoutIcon onClick={() => dispatch(authOperations.logOut())} />
+      <IconButton aria-label="log out" onClick={logOut}>
+        <LogoutIcon />
       </IconButton>
     </div>
   );

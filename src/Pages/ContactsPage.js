@@ -13,8 +13,6 @@ export default function ContactsPage() {
 
       <ContactInput />
       {loader ? <h2>loading...</h2> : <h2>Contacts</h2>}
-      {/* <h2 className={s.title}>Contacts</h2>
-    {loader && <h1>loading</h1>} */}
       <Filter />
 
       <ContactsList />

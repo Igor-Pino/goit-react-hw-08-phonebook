@@ -10,6 +10,11 @@ import ShortId from 'shortid';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
+const inputStyle = {
+  width: '217px',
+  height: '50px',
+};
+
 function ContactInput() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -33,6 +38,11 @@ function ContactInput() {
     setName(e.target.value);
   };
 
+  const phoneChange = phone => {
+    setNumber(phone);
+    console.log(number);
+  };
+
   const compareContacts = newContact => {
     if (
       stateContacts.find(contact => contact.name.toLowerCase() === newContact.name.toLowerCase())
@@ -51,10 +61,7 @@ function ContactInput() {
 
   const showAddButton = name !== '' && number !== '';
   const showError = name !== '' && !name.match('[^abc]');
-  const phoneChange = phone => {
-    setNumber(phone);
-    console.log(number);
-  };
+
   return (
     <Box
       component="form"
@@ -78,7 +85,15 @@ function ContactInput() {
         helperText={showError ? 'input correct name' : ''}
       />
 
-      <PhoneInput country={'ua'} value={number} onChange={phoneChange} />
+      <PhoneInput
+        country={'ua'}
+        onlyCountries={['ua', 'pl', 'ru']}
+        placeholder={'type number'}
+        value={number}
+        onChange={phoneChange}
+        inputStyle={inputStyle}
+        required
+      />
 
       <Button variant="contained" type="submit" endIcon={<SaveIcon />} disabled={!showAddButton}>
         Add contact
