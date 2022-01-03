@@ -22,11 +22,6 @@ const register = createAsyncThunk('auth/register', async (credentials, { rejectW
   }
 });
 
-/*
- * POST @ /users/login
- * body: { email, password }
- * После успешного логина добавляем токен в HTTP-заголовок
- */
 const logIn = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
   try {
     const { data } = await axios.post('/users/login', credentials);
@@ -37,19 +32,6 @@ const logIn = createAsyncThunk('auth/login', async (credentials, { rejectWithVal
   }
 });
 
-/*
- * POST @ /users/logout
- * headers: Authorization: Bearer token
- * После успешного логаута, удаляем токен из HTTP-заголовка
- */
-// const logOut = createAsyncThunk('auth/logout', async ({ rejectWithValue }) => {
-//   try {
-//     await axios.post('/users/logout');
-//     token.unset();
-//   } catch (error) {
-//     return rejectWithValue(error.response.data);
-//   }
-// });
 const logOut = createAsyncThunk('auth/logout', async () => {
   try {
     await axios.post('/users/logout');
@@ -67,25 +49,20 @@ const logOut = createAsyncThunk('auth/logout', async () => {
  * 2. Если токена нет, выходим не выполняя никаких операций
  * 3. Если токен есть, добавляет его в HTTP-заголовок и выполянем операцию
  */
-const fetchCurrentUser = createAsyncThunk(
-  'auth/refresh',
-  async (_, thunkAPI, { rejectWithValue }) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+const fetchCurrentUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const persistedToken = state.auth.token;
 
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue();
-    }
+  if (persistedToken === null) {
+    return thunkAPI.rejectWithValue();
+  }
 
-    token.set(persistedToken);
-    try {
-      const { data } = await axios.get('/users/current');
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  },
-);
+  token.set(persistedToken);
+  try {
+    const { data } = await axios.get('/users/current');
+    return data;
+  } catch (error) {}
+});
 
 const operations = {
   register,

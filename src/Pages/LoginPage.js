@@ -61,6 +61,7 @@ export default function FormPropsTextFields() {
   const handelSubmit = e => {
     e.preventDefault();
     dispatch(authOperations.logIn({ email, password }));
+
     setEmail('');
     setPassword('');
   };

@@ -1,17 +1,12 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import AuthNav from '../AuthNav';
-import User from '../User';
 import AppBarHeader from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import authSelectors from '../../Redux/Auth/authSelectors';
-import s from './AppBar.module.css';
 
-function AppBar() {
-  const isLogged = useSelector(authSelectors.getIsLoggedIn);
+import s from '../AppBar/AppBar.module.css';
+
+export default function Skeleton() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBarHeader position="static">
@@ -19,23 +14,21 @@ function AppBar() {
           <div className={s.pages}>
             <div className={s.navPage}>
               <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-                <NavLink to="/">Home</NavLink>
+                Home
               </Typography>
             </div>
             <div>
               <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-                <NavLink to="/contacts">Contacts</NavLink>
+                Contacts
               </Typography>
             </div>
           </div>
 
           <div className={s.logPages}>
-            <div className={s.navPage}>{isLogged ? <User /> : <AuthNav />}</div>
+            <div className={s.navPage}>Loading...</div>
           </div>
         </Toolbar>
       </AppBarHeader>
     </Box>
   );
 }
-
-export default AppBar;

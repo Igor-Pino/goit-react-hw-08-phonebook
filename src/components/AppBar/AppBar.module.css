@@ -1,0 +1,14 @@
+.pages {
+  display: flex;
+  align-items: start;
+}
+
+.navPage {
+  margin-right: 25px;
+}
+
+.logPages {
+  display: flex;
+  margin-right: 20px;
+  margin-left: auto;
+}

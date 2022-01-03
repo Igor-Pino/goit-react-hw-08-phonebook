@@ -1,8 +1,7 @@
 {
   "name": "goit-react-hw-08-phonebook",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "https://Igor-Pino.github.io/goit-react-hw-08-phonebook",
+  "private": true,  
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -38,7 +37,7 @@
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "netlify deploy -p"
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +58,8 @@
     ]
   },
   "devDependencies": {
+    "@pnotify/core": "^5.2.0",
+    "@pnotify/mobile": "^5.2.0",
     "husky": "^7.0.4",
     "lint-staged": "^11.2.4",
     "prettier": "^2.4.1"
